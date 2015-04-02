@@ -6,10 +6,39 @@
 
 package Control;
 
+import Entity.Project.Project;
+import Interface.ProjectInterface;
+
 /**
  * 
  * @author Ismail Cam
  */
-public class ProjectControl {
+public class ProjectControl implements ProjectInterface{
+
+    @Override
+    public void createProject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteProject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateProject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Project getProject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateProjectStatus() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 }
