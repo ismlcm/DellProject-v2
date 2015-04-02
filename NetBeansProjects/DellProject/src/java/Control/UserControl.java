@@ -10,6 +10,9 @@ import java.util.HashMap;
  * 
  * @author Ismail Cam
  */
+
+
+// Ismail heyyyy
 public class UserControl {
     
     static HashMap<String, Partner>    partnerList    = new HashMap();
