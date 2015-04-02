@@ -12,6 +12,7 @@ package Entity.Project;
  */
 public class Project {
     
+    private int projectID;
     private String cvrNumber;
     private String title;
     private String desc;
@@ -20,8 +21,9 @@ public class Project {
     private String endDate;
     private String status;
 
-    public Project( String cvrNumber, String title, String desc, int cost, String startDate, String endDate, String status )
+    public Project( int projectID, String cvrNumber, String title, String desc, int cost, String startDate, String endDate, String status )
     {
+        this.projectID = projectID;
         this.cvrNumber = cvrNumber;
         this.title = title;
         this.desc = desc;
@@ -44,6 +46,16 @@ public class Project {
     public String getTitle()
     {
         return title;
+    }
+
+    public int getProjectID()
+    {
+        return projectID;
+    }
+
+    public void setProjectID( int projectID )
+    {
+        this.projectID = projectID;
     }
 
     public void setTitle( String title )

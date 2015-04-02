@@ -6,6 +6,7 @@
 package Interface;
 
 import Entity.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +15,7 @@ import Entity.User;
 public interface UserInterface
 {
     
-    void createUser();
+    boolean createUser(String userType, ArrayList<String> userInfo);
     
     void deleteUser();
     

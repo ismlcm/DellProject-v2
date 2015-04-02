@@ -8,12 +8,15 @@ package Control;
 
 import Entity.Project.Project;
 import Interface.ProjectInterface;
+import java.util.HashMap;
 
 /**
  * 
  * @author Ismail Cam
  */
 public class ProjectControl implements ProjectInterface{
+    
+    HashMap<String, Project> projects = new HashMap();
 
     @Override
     public void createProject() {
