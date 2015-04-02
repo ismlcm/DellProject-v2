@@ -1,6 +1,8 @@
 
 package Entity;
 
+
+
 /**
  *
  * @author Ismail Cam
@@ -65,4 +67,6 @@ public class User
     {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", status=" + status + '}';
     }
+    
+    
 }

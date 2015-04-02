@@ -131,4 +131,5 @@ public class Partner extends User
         return "Partner{" + "companyID=" + companyID + ", companyName=" + companyName + ", address=" + address + ", city=" + city + ", postcode=" + postcode + ", email=" + email + ", phone=" + phone + ", partnerStatus=" + partnerStatus + '}';
     }
 
+
 }
