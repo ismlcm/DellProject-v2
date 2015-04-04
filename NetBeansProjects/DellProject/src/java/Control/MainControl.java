@@ -6,10 +6,14 @@
 
 package Control;
 
+
+
 /**
  * 
  * @author Ismail Cam
  */
 public class MainControl {
+    
+
 
 }

@@ -1,4 +1,3 @@
-
 package Control;
 
 import Entity.User;
@@ -10,29 +9,73 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 
+ *
  * @author Ismail Cam
  */
+public class UserControl implements UserInterface
+{
 
-
-
-public class UserControl implements UserInterface{
-
+    public static HashMap<String, Marketing>    marketing_users = new HashMap();
+    public static HashMap<String, Finans>       finans_users    = new HashMap();
+    public static HashMap<String, Partner>      partner_users   = new HashMap();
     
-    static HashMap<String, Marketing>  marketingList  = new HashMap();
-    static HashMap<String, Finans>     finansList     = new HashMap();
-
     
-    @Override
-    public boolean createUser( User user )
+    public static void main( String[] args )
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+        UserControl u = new UserControl();
+        
+        u.createUser( new Partner(1, "companyid", "password", "companyname", "address", "city", 2000, "email", "phone"), partner_users);
+        
+        System.out.println( partner_users.get( "companyid" ).getUserType() );
+        
+        u.createUser( new Finans(2, "personalid", "password", "firstname", "lastname", "email", "phone"), finans_users);
+        
+        System.out.println( finans_users.get( "personalid" ).getUserType());
+        
+        System.out.println( ":::::::::::::::" );
+        System.out.println( finans_users.size() );
+        
+        
+        u.deleteUser( "personalid", finans_users);
+        
+        System.out.println( finans_users.size() );
+    }
+    
+
+    @Override
+    public boolean createUser( User user, HashMap users )
+    {
+        // IF USER EXIST
+        if ( users.containsKey( user.getUsername() ) )
+        {
+            return false;
+        }
+
+        else
+        {   
+            // INSERT USER TO HASHMAP
+            users.put( user.getUsername(), user );
+
+            return true;
+        }
     }
 
     @Override
-    public boolean deleteUser( String username )
+    public boolean deleteUser( String username, HashMap users )
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+        // IF USER EXIST
+        if ( users.containsKey( username ) )
+        {       
+            // DELETE USER FROM HASHMAP
+            users.remove( username );
+
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
     }
 
     @Override
@@ -58,7 +101,5 @@ public class UserControl implements UserInterface{
     {
         throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
     }
-    
-  
 
 }

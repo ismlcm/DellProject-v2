@@ -6,6 +6,7 @@
 package Interface;
 
 import Entity.User;
+import java.util.HashMap;
 
 /**
  *
@@ -14,9 +15,9 @@ import Entity.User;
 public interface UserInterface
 {
     
-    boolean createUser(User user);
+    boolean createUser(User user, HashMap users);
     
-    boolean deleteUser(String username);
+    boolean deleteUser(String username, HashMap users);
     
     void updateUser();
     
