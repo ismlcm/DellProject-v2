@@ -19,7 +19,7 @@ public interface UserInterface
     
     boolean deleteUser(String username, HashMap users);
     
-    void updateUser();
+    boolean updateUser(String username, HashMap users, User user);
     
     User getUser();
     
