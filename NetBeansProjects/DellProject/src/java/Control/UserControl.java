@@ -15,30 +15,16 @@ public class UserControl implements UserInterface
 {
 
     // Static Maps. Der må ikke oprettes flere kopi af disse maps, selvom der bliver intialiseret flere instanter.
-    static HashMap<String, Marketing>    marketing_users = new HashMap();
-    static HashMap<String, Finans>       finans_users    = new HashMap();
-    static HashMap<String, Partner>      partner_users   = new HashMap();
+    public static HashMap<String, Marketing>    marketing_users = new HashMap();
+    public static HashMap<String, Finans>       finans_users    = new HashMap();
+    public static HashMap<String, Partner>      partner_users   = new HashMap();
+    
+    
     
     
     public static void main( String[] args )
     {
-//        UserControl u = new UserControl();
-//        
-//        u.createUser( new Partner(1, "companyid", "password", "companyname", "address", "city", 2000, "email", "phone"), partner_users);
-//        
-//        System.out.println( partner_users.get( "companyid" ).getUserType() );
-//        
-//        u.createUser( new Finans(2, "personalid", "password", "firstname", "lastname", "email", "phone"), finans_users);
-//        
-//        System.out.println( finans_users.get( "personalid" ).getUserType());
-//        
-//        System.out.println( ":::::::::::::::" );
-//        System.out.println( finans_users.size() );
-//        
-//        
-//        u.deleteUser( "personalid", finans_users);
-//        
-//        System.out.println( finans_users.size() );
+        
     }
     
 
@@ -78,37 +64,39 @@ public class UserControl implements UserInterface
         }
     }
 
-    @Override
-    public boolean updateUser(String username, HashMap users, User user)
-    {        
-        if ( users.containsKey( username ) )
-        {
-            users.replace( username, user);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
-    }
-
-    @Override
-    public User getUser()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeUserPassword()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateUserStatus()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public boolean updateUser(String username, HashMap users, User user)
+//    {   
+//        // IF USER EXIST
+//        if ( users.containsKey( username ) )
+//        {
+//            // REPLACE NEW USER INFO
+//            users.replace( username, user);
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//        
+//    }
+//
+//    @Override
+//    public User getUser(String username )
+//    {  
+//        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public void changeUserPassword()
+//    {
+//        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public boolean updateUserStatus(String username, String status )
+//    {
+//        return false;
+//    }
 
 }

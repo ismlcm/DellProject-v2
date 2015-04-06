@@ -19,12 +19,12 @@ public interface UserInterface
     
     boolean deleteUser(String username, HashMap users);
     
-    boolean updateUser(String username, HashMap users, User user);
-    
-    User getUser();
-    
-    void changeUserPassword();
-    
-    void updateUserStatus();
+//    boolean updateUser(String username, HashMap users, User user);
+//    
+//    User getUser(String username, HashMap users);
+//    
+//    void changeUserPassword();
+//    
+//    boolean updateUserStatus(String username, String status);
     
 }
