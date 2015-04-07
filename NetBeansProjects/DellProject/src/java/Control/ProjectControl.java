@@ -16,22 +16,66 @@ import java.util.HashMap;
  */
 public class ProjectControl implements ProjectInterface{
     
-    HashMap<String, Project> projects = new HashMap();
+    
+    public static void main(String[] args) {
+        
+        ProjectControl p = new ProjectControl();
+        
+        p.createProject(new Project(1, "341343131", "Test title", "Test desc", "start dato", "end dato"));
+        
+        
+//        System.out.println(projects.size());
+////        p.deleteProject("1");
+////         System.out.println(projects.size());
+//        
+//        projects.get("1").setCost(Integer.MAX_VALUE);
+////        System.out.println(projects.get("1").getStatus());
+////        
+////        projects.get("1").setStatus("accept");
+////        
+////        System.out.println(projects.get("1").getStatus());
+    }
+    
+    
+    static HashMap<String, Project> projects = new HashMap();
+    
 
     @Override
-    public void createProject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean createProject(Project project) {
+        
+        String projectId = Integer.toString(project.getId());
+        
+        if(projects.containsKey(projectId))    
+        {
+            return false; 
+        }
+        
+        else
+        {
+            // Ny Project
+            projects.put(projectId, project);
+            return true;
+        }
+ 
     }
+    
 
     @Override
-    public void deleteProject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteProject(String projectId) {
+
+       if(projects.containsKey(projectId)){
+        projects.remove(projectId);
+       return true;
+       
+       }else{
+     return false;
+       
+       }
     }
 
-    @Override
-    public void updateProject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public boolean updateProject() {
+//     }
 
     @Override
     public Project getProject() {
@@ -41,7 +85,5 @@ public class ProjectControl implements ProjectInterface{
     @Override
     public void updateProjectStatus() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-
+    }   
 }
