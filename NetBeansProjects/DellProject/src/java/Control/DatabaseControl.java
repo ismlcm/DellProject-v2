@@ -7,11 +7,14 @@ package Control;
 
 import static Control.DBConnectorNew.JDBC_DRIVER;
 import Entity.User;
+import Entity.UserType.Partner;
 import Interface.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +30,27 @@ public class DatabaseControl implements Database
         DatabaseControl d = new DatabaseControl();
 
         d.connect();
-        d.insertToTabel("users");
+        
+//        ArrayList<String> list = new ArrayList();
+//        
+//        list.add( "2" );
+//        list.add( "2");
+//        list.add( "title" );
+//        list.add( "descr" );
+//        list.add( "100,00" );
+//        list.add( "2003-01-30" );
+//        list.add( "2003-02-14" );
+//        list.add( "status" );
+        
+         
+        
+        //System.out.println( str3 );
+        
+        // VALUES ('654', '123456789', 'password', 'status', 'usertype')
+        
+//        d.insertToTabel("projects", list );
+        
+        d.updateTabel();
     }
 
     // JDBC driver name and database URL
@@ -66,9 +89,29 @@ public class DatabaseControl implements Database
         }
     }
 
-    @Override
-    public void insertToTabel(String tabelname)
+   @Override
+    public void insertToTabel(String tabelname, ArrayList<String> list)
     {
+        
+        String str = "";
+        String str2 = "";
+        
+        for ( int i = 0; i < list.size(); i++ )
+        {
+            if ( i == (list.size() - 1) )
+            {
+                str = "'" + list.get( i ) + "'";
+                str2 += str;
+            }
+            else
+            {
+                str = "'" + list.get( i ) + "', ";
+                str2 += str;
+            }
+            
+        }
+        
+        String str3 = "VALUES (" + str2 + ")";
 
         //STEP 4: Execute a query
         System.out.println( "Inserting records into the table..." );
@@ -77,7 +120,7 @@ public class DatabaseControl implements Database
             stmt = conn.createStatement();
 
             String sql = "INSERT INTO cphfp59." + tabelname + " "
-                    + "VALUES (5, 123456789, 'password', 'status', 'usertype')";
+                    + str3;
             stmt.executeUpdate( sql );
 
             System.out.println( "Inserted records into the table..." );
@@ -152,7 +195,48 @@ public class DatabaseControl implements Database
     @Override
     public void updateTabel()
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+        
+
+        try
+        {
+           stmt = conn.createStatement();
+           
+           String sql = "UPDATE CPHFP59.USERS" + "\n" +
+                        "SET password = 'cam'" + "\n" +
+                        "WHERE id = '4'";
+           
+           stmt.executeUpdate( sql );
+        }
+        
+        catch (SQLException ex)
+        {
+            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
+        }
+        finally
+        {
+            //finally block used to close resources
+            try
+            {
+                if ( stmt != null )
+                {
+                    conn.close();
+                }
+            }
+            catch (SQLException se)
+            {
+            }// do nothing
+            try
+            {
+                if ( conn != null )
+                {
+                    conn.close();
+                }
+            }
+            catch (SQLException se)
+            {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
 
     @Override

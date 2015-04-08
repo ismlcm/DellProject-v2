@@ -63,6 +63,26 @@ public class UserControl implements UserInterface
             return false;
         }
     }
+    
+    public HashMap getUsersMap(String list)
+    {
+        if(list.equals( "partner" ) )
+        {
+            return partner_users;
+        }
+        else if(list.equals( "finans" ) )
+        {
+            return finans_users;
+        }
+        else if(list.equals( "marketing" ) )
+        {
+            return marketing_users;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
 //    @Override
 //    public boolean updateUser(String username, HashMap users, User user)

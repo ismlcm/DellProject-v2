@@ -6,6 +6,7 @@
 package Interface;
 
 import Entity.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +43,6 @@ public interface Database
     
     void getSum();
     
-    void insertToTabel(String tabelname);
+    void insertToTabel(String tabelname, ArrayList<String> list);
     
 }
