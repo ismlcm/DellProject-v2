@@ -34,6 +34,8 @@ public class ProjectControl implements ProjectInterface{
 ////        projects.get("1").setStatus("accept");
 ////        
 ////        System.out.println(projects.get("1").getStatus());
+        
+        System.out.println( projects.get( "1" ).getProjectID() );
     }
     
     
@@ -43,7 +45,7 @@ public class ProjectControl implements ProjectInterface{
     @Override
     public boolean createProject(Project project) {
         
-        String projectId = Integer.toString(project.getId());
+        String projectId = Integer.toString(project.getProjectID());
         
         if(projects.containsKey(projectId))    
         {
@@ -77,13 +79,19 @@ public class ProjectControl implements ProjectInterface{
 //    public boolean updateProject() {
 //     }
 
-    @Override
-    public Project getProject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateProjectStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }   
+//    @Override
+//    public Project getProject() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public void updateProjectStatus() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }   
+//
+//    @Override
+//    public void updateProject()
+//    {
+//        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

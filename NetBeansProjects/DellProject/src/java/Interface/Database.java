@@ -5,6 +5,8 @@
  */
 package Interface;
 
+import Entity.User;
+
 /**
  *
  * @author Ismail Cam
@@ -40,6 +42,6 @@ public interface Database
     
     void getSum();
     
-    void insertToTabel();
+    void insertToTabel(String tabelname);
     
 }

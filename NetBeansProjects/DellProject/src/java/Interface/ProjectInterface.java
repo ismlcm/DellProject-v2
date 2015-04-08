@@ -14,14 +14,14 @@ import Entity.Project.Project;
 public interface ProjectInterface
 {
     
-    void createProject();
+    boolean createProject(Project project);
     
-    void deleteProject();
+    boolean deleteProject(String projectId);
     
-    void updateProject();
-    
-    Project getProject();
-    
-    void updateProjectStatus();
+//    void updateProject();
+//    
+//    Project getProject();
+//    
+//    void updateProjectStatus();
     
 }

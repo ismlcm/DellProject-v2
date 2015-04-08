@@ -21,16 +21,16 @@ public class Project {
     private String endDate;
     private String status;
 
-    public Project( int projectID, String cvrNumber, String title, String desc, int cost, String startDate, String endDate, String status )
+    public Project( int projectID, String cvrNumber, String title, String desc, String startDate, String endDate )
     {
         this.projectID = projectID;
         this.cvrNumber = cvrNumber;
         this.title = title;
         this.desc = desc;
-        this.cost = cost;
+        this.cost = 0;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = status;
+        this.status = "new";
     }
 
     public String getCvrNumber()
@@ -112,7 +112,5 @@ public class Project {
     {
         this.status = status;
     }
-    
-    
 
 }
