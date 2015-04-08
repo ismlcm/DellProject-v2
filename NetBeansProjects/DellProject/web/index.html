@@ -9,8 +9,82 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- BOOTSRAP -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://localhost:8080/DellProject/bootstrap/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="http://localhost:8080/DellProject/bootstrap/css/bootstrap-theme.min.css">
+        <!-- /BOOTSRAP -->
+
+
+
     </head>
     <body>
-        <div>TODO write content</div>
+        <!-- CONTENT -->
+        <div class="container">
+
+
+            <div class="row">
+                
+                <div class="col-md-4"></div>
+                <div class="col-md-4" style="margin-top: 20px;">
+                    <div class="jumbotron">
+                        <form name="createaccount" id="createaccount" method="POST" action="">
+                        <div class="form-group">
+                            <label for="companyid">Company ID</label>
+                            <input type="text" class="form-control" id="companyid" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyname">Company Name</label>
+                            <input type="text" class="form-control" id="companyname" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="postcode">Postcode</label>
+                            <input type="text" class="form-control" id="postcode" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="status" value="">
+                            <input type="hidden" class="form-control" id="usertype" value="">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <!-- /CONTENT -->
+
+
+
+        <!-- BOOTSRAP -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="http://localhost:8080/DellProject/bootstrap/js/bootstrap.min.js"></script>
+        <!-- /BOOTSRAP -->
     </body>
 </html>
