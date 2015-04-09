@@ -44,4 +44,14 @@ public class ViewControl implements ViewInterface{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public String printMessage(String type, String message)
+    {
+        String m = "<div class='alert alert-" + type + " alert-dismissible' role='alert'>"
+                                + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                                + message
+                                + "</div>";
+        
+        return m;
+    }
 }

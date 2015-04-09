@@ -24,4 +24,5 @@ public interface ViewInterface
     
     void hide();
     
+    String printMessage(String type, String message);
 }
