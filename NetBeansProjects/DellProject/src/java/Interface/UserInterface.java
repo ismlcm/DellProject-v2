@@ -19,6 +19,8 @@ public interface UserInterface
     
     boolean deleteUser(String username, HashMap users);
     
+    void createDummyUsers();
+    
 //    boolean updateUser(String username, HashMap users, User user);
 //    
 //    User getUser(String username, HashMap users);

@@ -18,15 +18,6 @@ public class UserControl implements UserInterface
     public static HashMap<String, Marketing>    marketing_users = new HashMap();
     public static HashMap<String, Finans>       finans_users    = new HashMap();
     public static HashMap<String, Partner>      partner_users   = new HashMap();
-    
-    
-    
-    
-    public static void main( String[] args )
-    {
-        
-    }
-    
 
     @Override
     public boolean createUser( User user, HashMap users )
@@ -82,6 +73,18 @@ public class UserControl implements UserInterface
         {
             return null;
         }
+    }
+    
+    @Override
+    public void createDummyUsers()
+    {
+        Partner p = new Partner(100, "1000", "1234", "companyname", "address", "city", 2000, "email", "phone");
+        Partner p2 = new Partner(100, "2000", "lort", "companyname", "address", "city", 2000, "email", "phone");
+        Marketing m = new Marketing(1, "3000", "4321", "Ismail", "Cam", "ismlcam@gmail.com", "33223322");
+
+        partner_users.put( "1000", p);
+        partner_users.put( "2000", p2);
+        marketing_users.put( "3000", m);
     }
 
 //    @Override

@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Control;
 
+import Interface.UserInterface;
 import Interface.ViewInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  *
  * @author Ismail Cam
@@ -25,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 } )
 public class FormControl extends HttpServlet
 {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
@@ -42,7 +37,8 @@ public class FormControl extends HttpServlet
         try (PrintWriter out = response.getWriter())
         {
             
-            ViewInterface view = new ViewControl();
+           
+             
             String origin = request.getParameter( "origin" );
             switch ( origin )
             {
@@ -51,15 +47,24 @@ public class FormControl extends HttpServlet
                     String id = request.getParameter( "loginid" );
                     String name = request.getParameter( "loginpassword" );
                     //boolean succes = auth.addUser( id, name, pwd, gender );
-                    if ( !id.equals( "faruk" ) && !name.equals( "1234" ) )
+                    if ( UserControl.partner_users.containsKey( id ) )
                     {
-                        request.getSession().setAttribute( "message", view.printMessage( "danger", "Something went wrong. You are not registered") );
+                        request.getSession().setAttribute( "message", MainControl.viewcontrol.printMessage( "success", "You have logged in succesfully!"));
+                        response.sendRedirect( "feedback.jsp" );
                     }
+                    
+                    else if ( UserControl.marketing_users.containsKey( id ) )
+                    {
+                        request.getSession().setAttribute( "message", MainControl.viewcontrol.printMessage( "success", "You have logged in as Marketing User!"));
+                        response.sendRedirect( "marketing.jsp" );
+                    }
+         
                     else
                     {
-                        request.getSession().setAttribute( "message", view.printMessage( "success", "You have logged in succesfully"));
+                        request.getSession().setAttribute( "message", MainControl.viewcontrol.printMessage( "danger", "Something went wrong. You are not logged in!<br/><a href='http://localhost:8080/DellProject/' class='btn btn-danger' style='margin-top:10px'>&larr; Try again</a>") );
+                        response.sendRedirect( "feedback.jsp" );
                     }
-                    response.sendRedirect( "feedback.jsp" );
+                    
                     return;
 //                case "createaccountform":
 //                    id = request.getParameter( "id" );

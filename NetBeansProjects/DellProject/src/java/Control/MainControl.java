@@ -6,6 +6,9 @@
 
 package Control;
 
+import Interface.UserInterface;
+import Interface.ViewInterface;
+
 
 
 /**
@@ -13,7 +16,12 @@ package Control;
  * @author Ismail Cam
  */
 public class MainControl {
-    
 
+    
+    public static ViewInterface viewcontrol = new ViewControl();
+
+    public static UserInterface usercontrol = new UserControl();
+
+    
 
 }

@@ -4,7 +4,14 @@
     Author     : Ismail Cam
 --%>
 
+<%@page import="Control.FormControl"%>
+<%@page import="Control.MainControl"%>
+<%@page import="Interface.ViewInterface"%>
+<%@page import="Control.ViewControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% MainControl.usercontrol.createDummyUsers(); %>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -13,32 +20,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Dell</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- BOOTSRAP -->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="http://localhost:8080/DellProject/bootstrap/css/bootstrap.min.css">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="http://localhost:8080/DellProject/bootstrap/css/bootstrap-theme.min.css">
-        <!-- /BOOTSRAP -->
-
-
-
+        <% out.print( MainControl.viewcontrol.getHead("Dell") ); %>
     </head> 
 
-    <nav class="navbar" style="background: #1486C1; border-radius: 0px; padding: 10px;">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="http://localhost:8080/DellProject/"><img src="http://localhost:8080/DellProject/img/logo_white.png" width="40"></a>
-            </div>
-        </div>
-    </nav>
+        <% out.print( MainControl.viewcontrol.getNav() ); %>
 
     <div class="container">
-
+        
         <div class="row" style="border:1px solid #DDDDDD; border-radius: 10px;">
             <div class="col-md-6" style="padding: 20px; height: 370px;">
                 <h3>Dell Account Sign In</h3>
@@ -52,7 +40,7 @@ and open the template in the editor.
                     <input type="hidden" name="origin" value="loginform" />
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
-
+              
                 <p style="margin-top: 10px;">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="color:#158DB8">Forgot your password?</a>
                 </p>
@@ -142,21 +130,7 @@ and open the template in the editor.
 
     </div> <!-- /container -->
 
-    <footer style="background: #1486C1; padding: 10px; color: #ffffff; text-align: center; position: absolute; bottom: 0px; width: 100%;">
-        <div class="container">    
-            <p style="font-size: 10px;">&copy; 2015 Dell</p>
-        </div>
-    </footer>
-
-
-
-
-
-    <!-- BOOTSRAP -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://localhost:8080/DellProject/bootstrap/js/bootstrap.min.js"></script>
-    <!-- /BOOTSRAP -->
+    <% out.print( MainControl.viewcontrol.getFooter() ); %>
+    
 </body>
 </html>

@@ -25,4 +25,10 @@ public interface ViewInterface
     void hide();
     
     String printMessage(String type, String message);
+    
+    String getHead(String title);
+    
+    String getFooter();
+    
+    String getNav();
 }
