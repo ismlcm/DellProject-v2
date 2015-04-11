@@ -9,7 +9,7 @@ import static Control.DBConnectorNew.JDBC_DRIVER;
 import Entity.Project.Project;
 import Entity.User;
 import Entity.UserType.Partner;
-import Interface.Database;
+import Interface.DatabaseInterface;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -27,16 +27,26 @@ import java.util.logging.Logger;
  *
  * @author Ismail Cam
  */
-public class DatabaseControl implements Database
+public class DatabaseControl implements DatabaseInterface
 {
 
     public static void main( String[] args ) throws SQLException
     {
 
-        
         DatabaseControl d = new DatabaseControl();
 
         d.connect();
+        
+        d.updateValue("USERS", "1000", "usertype", "ismail");
+        
+//        ArrayList<String> list = new ArrayList();
+//        
+//        list.add( "1009" );
+//        list.add( "password" );
+//        list.add( "new" );
+//        list.add( "type" );
+//        
+//        d.insertToTabel( "USERS", list);
 
 //        ArrayList<String> list = new ArrayList();
 //        
@@ -53,488 +63,252 @@ public class DatabaseControl implements Database
 //        d.insertToTabel("projects", list );
         //d.updateTabel();
         //System.out.println( ProjectControl.projects.size() );
-        
         //ArrayList<String> a = d.getFromTable("Projects", "Status", "new");
-        
         //int i = a.size() - 1; // 16
         //String j = a.get( a.size()-1);
         //int j2 = Integer.parseInt( j );
-        
-        
-        
-       /// System.out.println( a.size());
-        
+        /// System.out.println( a.size());
 //        for ( String arg : a )
 //        {
 //            System.out.println( arg );
 //        }
-        
-        System.out.println( "::::::::::::::::::::::::::::::::::::" );
-        
-        //System.out.println( ProjectControl.projects.size() );
-        
-        HashMap<String, ArrayList<String>> map = d.getFromTable( "PROJECTS", "STATUS", "new");
-        
-        System.out.println( map.get( "USERNAME" ).get( 0 ) );
-        
+//        System.out.println( "::::::::::::::::::::::::::::::::::::" );
+//
+//        //System.out.println( ProjectControl.projects.size() );
+//        HashMap<String, ArrayList<String>> map = d.getFromTable( "PROJECTS", "STATUS", "new" );
+//
+//        System.out.println( map.get( "USERNAME" ).size() );
         //d.setFromTable( 8, ProjectControl.projects);
-        
-       // System.out.println( ProjectControl.projects.size() );
-        
+        // System.out.println( ProjectControl.projects.size() );
         //System.out.println( ProjectControl.projects.size() );
     }
 
+
+    
+    /****************************************************************
+    *   CONNECTION INFORMATION
+    *****************************************************************/
     // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    static final String DB_URL = "jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat";
+    static final String JDBC_DRIVER     = "oracle.jdbc.driver.OracleDriver";
+    static final String URL             = "jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat";
 
-    //  Database credentials
-    static final String USER = "cphfp59";
-    static final String PASS = "cphfp59";
+    // DatabaseInterface user details
+    static final String USERNAME        = "cphfp59";
+    static final String PASSWORD        = "cphfp59";
 
-    static Connection conn = null;
-    static Statement stmt = null;
+    
+    
+    /****************************************************************
+    *   START
+    *****************************************************************/
+    static Connection CONNECTION        = null;
+    static Statement STATEMENT          = null;
 
+
+    
+    /****************************************************************
+    *   CONNECTION TO DATABASE
+    *****************************************************************/
     @Override
     public void connect()
     {
         try
         {
-            //STEP 2: Register JDBC driver
+            // Register JDBC driver
             Class.forName( JDBC_DRIVER );
 
-            //STEP 3: Open a connection
-            System.out.println( "Connecting to a selected database..." );
-            conn = DriverManager.getConnection( DB_URL, USER, PASS );
-            System.out.println( "Connected database successfully..." );
+            // Open connection
+            CONNECTION = DriverManager.getConnection( URL, USERNAME, PASSWORD );
+            System.out.println( "Connected to " + CONNECTION.getSchema() + " successfully..." );
         }
         catch (SQLException se)
         {
-            //Handle errors for JDBC
+            // Errors for JDBC
             se.printStackTrace();
         }
         catch (Exception e)
         {
-            //Handle errors for Class.forName
+            // Errors for Class.forName
             e.printStackTrace();
         }
     }
 
+    
+    /****************************************************************
+    *   INSERT VALUES TO TABLE
+    *****************************************************************/
     @Override
-    public void insertToTabel( String tabelname, ArrayList<String> list )
+    public void insertValue( String tabel, ArrayList<String> list )
     {
-
-        String str = "";
-        String str2 = "";
+        
+        String value        = "";
+        String value_list   = "";
 
         for ( int i = 0; i < list.size(); i++ )
         {
+            // Dont set comma to the last value
             if ( i == (list.size() - 1) )
             {
-                str = "'" + list.get( i ) + "'";
-                str2 += str;
+                value       = "'" + list.get( i ) + "'";
+                value_list += value;
             }
             else
             {
-                str = "'" + list.get( i ) + "', ";
-                str2 += str;
+                value       = "'" + list.get( i ) + "', ";
+                value_list += value;
             }
-
         }
 
-        String str3 = "VALUES (" + str2 + ")";
+        // SQL Value ready
+        String values = "VALUES (" + value_list + ")";
 
-        //STEP 4: Execute a query
-        System.out.println( "Inserting records into the table..." );
+        // Execute command
         try
         {
-            stmt = conn.createStatement();
+            // Create statement
+            STATEMENT = CONNECTION.createStatement();
+            
+            // SQL String ready
+            String sql = "INSERT INTO cphfp59." + tabel + " " + values;
+            
+            // Execute SQL
+            STATEMENT.executeUpdate( sql );
 
-            String sql = "INSERT INTO cphfp59." + tabelname + " "
-                    + str3;
-            stmt.executeUpdate( sql );
-
+            // Success message to output
             System.out.println( "Inserted records into the table..." );
         }
-        catch (SQLException ex)
+        catch (SQLException se)
         {
-            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
+            se.printStackTrace();
         }
         finally
         {
-            //finally block used to close resources
+            // Finally block used to close resources
             try
             {
-                if ( stmt != null )
-                {
-                    conn.close();
-                }
+                if ( STATEMENT != null || CONNECTION != null ) CONNECTION.close();
             }
-            catch (SQLException se)
-            {
-            }// do nothing
-            try
-            {
-                if ( conn != null )
-                {
-                    conn.close();
-                }
-            }
-            catch (SQLException se)
+            
+            catch (SQLException se) 
             {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
-    }
-
-    @Override
-    public void createDatabase()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteDatabase()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateDatabase()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getDatabaseName()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void creatTabel()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteTabel()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateTabel()
-    {
-
-        try
-        {
-            stmt = conn.createStatement();
-
-            String sql = "UPDATE CPHFP59.USERS" + "\n"
-                    + "SET password = 'cam'" + "\n"
-                    + "WHERE id = '4'";
-
-            stmt.executeUpdate( sql );
-        }
-
-        catch (SQLException ex)
-        {
-            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
-        }
-        finally
-        {
-            //finally block used to close resources
-            try
-            {
-                if ( stmt != null )
-                {
-                    conn.close();
-                }
             }
-            catch (SQLException se)
-            {
-            }// do nothing
-            try
-            {
-                if ( conn != null )
-                {
-                    conn.close();
-                }
-            }
-            catch (SQLException se)
-            {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
+        }
     }
 
-    @Override
-    public void orderTabel()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getColumn()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getRow()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getCount()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getSum()
-    {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//    public void getFromTable(String table, String colName, String select)
-//    {
-//        try
-//        {
-//            String query = "SELECT * FROM "+ table +" WHERE "+ colName +" = '"+ select +"'";
-//            stmt = conn.createStatement();
-//
-//            ResultSet rs = stmt.executeQuery( query );
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//
-//            int numberOfColumns = rsmd.getColumnCount();
-//
-//            // Print Content
-//            while ( rs.next() )
-//            {
-//                    
-//                    int id              = Integer.parseInt( rs.getString( 1 ) );
-//                    int cvr             = Integer.parseInt( rs.getString( 2 ) );
-//                    String title        =                   rs.getString( 3 );
-//                    String desc         =                   rs.getString( 4 );
-//                    int cost            = Integer.parseInt( rs.getString( 5 ) );
-//                    String startdate    =                   rs.getString( 6 );
-//                    String enddate      =                   rs.getString( 7 );
-//                    String status       =                   rs.getString( 8 );
-//                    
-//                    
-//                    Project p = new Project(id  , cvr, title, cost, desc, startdate, enddate, status );
-//                    
-//                    ProjectControl.projects.put( id, p);
-//
-//            }
-//
-//        }
-//
-//        catch (SQLException ex)
-//        {
-//            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
-//        }
-//        finally
-//        {
-//            //finally block used to close resources
-//            try
-//            {
-//                if ( stmt != null )
-//                {
-//                    conn.close();
-//                }
-//            }
-//            catch (SQLException se)
-//            {
-//            }// do nothing
-//            try
-//            {
-//                if ( conn != null )
-//                {
-//                    conn.close();
-//                }
-//            }
-//            catch (SQLException se)
-//            {
-//                se.printStackTrace();
-//            }//end finally try
-//        }//end try
-//    }
-//    public ArrayList<Object> getFromTable( String table, String colName, String select )
-//    {
-//        ArrayList<String> list = new ArrayList();
-//        
-//        try
-//        {
-//            String query = "SELECT * FROM " + table + " WHERE " + colName + " = '" + select + "'";
-//            stmt = conn.createStatement();
-//
-//            ResultSet rs = stmt.executeQuery( query );
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//
-//            int numberOfColumns = rsmd.getColumnCount();
-//
-//            // Print Content
-//            while ( rs.next() )
-//            {
-//
-//                for ( int i = 1; i <= numberOfColumns; i++ )
-//                {
-//                    
-//                    list.add( rs.getString( i ) );
-//                }
-//            }
-//
-//            list.add( Integer.toString( numberOfColumns ) );
-//
-//        }
-//
-//        catch (SQLException ex)
-//        {
-//            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
-//        }
-//        finally
-//        {
-//            //finally block used to close resources
-//            try
-//            {
-//                if ( stmt != null )
-//                {
-//                    conn.close();
-//                }
-//            }
-//            catch (SQLException se)
-//            {
-//            }// do nothing
-//            try
-//            {
-//                if ( conn != null )
-//                {
-//                    conn.close();
-//                }
-//            }
-//            catch (SQLException se)
-//            {
-//                se.printStackTrace();
-//            }//end finally try
-//        }//end try
-//
-//        return list;
-//    }
     
-//    public void setFromTable(int col, HashMap map)
-//    {
-//        ArrayList<String> a = getFromTable( "PROJECTS", "STATUS", "new" );
-//        int listSize = a.size() - 1;
-//        int innerlistSize = listSize / col;
-//        
-//        String[] ar = new String[col];
-//        
-//        Project p = null;
-//        
-//        for ( int i = 0; i <= innerlistSize; i++ )
-//        {
-//            for ( int j = 0; j <= 8; j++ )
-//            {
-//                
-//                ar[i] = a.get( j );
-//
-//            }
-//            
-//            p = new Project(Integer.parseInt( ar[0] ), 
-//                                Integer.parseInt( ar[1] ), 
-//                                ar[2], 
-//                                ar[3], 
-//                                Integer.parseInt( ar[4] ), 
-//                                ar[5], 
-//                                ar[6], 
-//                                ar[7]);
-//            map.put( Integer.parseInt( ar[0] ), p);   
-//        }
-//    }
-    
-  public HashMap getFromTable( String table, String colName, String select )
+    /****************************************************************
+    *   UPDATE VALUE
+    *****************************************************************/
+    @Override
+    public void updateValue(String table, String primaryKey, String columnName, String newValue)
     {
-        ArrayList<String> list = new ArrayList();
         
+        // Select table
+        String query = "SELECT * FROM " + table;
+
         try
         {
-            String query = "SELECT * FROM " + table + " WHERE " + colName + " = '" + select + "'";
-            stmt = conn.createStatement();
-
-            ResultSet rs = stmt.executeQuery( query );
+            // Create statement
+            STATEMENT = CONNECTION.createStatement();
+            
+            // Create resultset
+            ResultSet rs = STATEMENT.executeQuery(query);
+            
+            // Get metadata
             ResultSetMetaData rsmd = rs.getMetaData();
+            
+            // Select first column name
+            String primaryColumnName = rsmd.getColumnName(1);
 
-            int numberOfColumns = rsmd.getColumnCount();
+            // SQL ready
+            String sql = "UPDATE " + table + "\n" + "SET " + columnName + " = '" + newValue + "'" + "\n" + "WHERE " + primaryColumnName + " = '" + primaryKey + "'";
 
-            // Print Content
-//            while ( rs.next() )
-//            {
-//
-//                for ( int i = 1; i <= numberOfColumns; i++ )
-//                {
-//                    
-//                    list.add( rs.getString( i ) );
-//                }
-//            }
-//
-//            list.add( Integer.toString( numberOfColumns ) );
-
-            return resultSetToArrayList( rs );
-
+            // Execute SQL
+            STATEMENT.executeUpdate( sql );
         }
 
-        catch (SQLException ex)
+        catch (SQLException se)
         {
-            Logger.getLogger( DatabaseControl.class.getName() ).log( Level.SEVERE, null, ex );
+            se.printStackTrace();
         }
         finally
         {
-            //finally block used to close resources
+            // Finally block used to close resources
             try
             {
-                if ( stmt != null )
-                {
-                    conn.close();
-                }
+                if ( STATEMENT != null || CONNECTION != null ) CONNECTION.close();
             }
-            catch (SQLException se)
-            {
-            }// do nothing
-            try
-            {
-                if ( conn != null )
-                {
-                    conn.close();
-                }
-            }
-            catch (SQLException se)
+            
+            catch (SQLException se) 
             {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
-        
-        return null;
-        
-    }
-  
-private HashMap<String, ArrayList<String>> resultSetToArrayList(ResultSet rs) throws SQLException {
-    ResultSetMetaData md = rs.getMetaData();
-    int columns = md.getColumnCount();
-    HashMap<String, ArrayList<String>> map = new HashMap();
-    for (int i = 1; i <= columns; ++i) {
-        map.put(md.getColumnName(i), new ArrayList());
-    }
-    while (rs.next()) {
-        for (int i = 1; i <= columns; ++i) {
-            map.get(md.getColumnName(i)).add(rs.getString(i));
+            }
         }
     }
 
-    return map;
-}
+    
+    /****************************************************************
+    *   GET TABLE ROWS WITH SPECIFIC VALUE
+    *****************************************************************/
+    @Override
+    public HashMap getFromTable( String table, String colName, String value )
+    {
+        // HashMap
+        HashMap<String, ArrayList<String>> map = new HashMap();
+        
+        // SQL ready
+        String sql = "SELECT * FROM " + table + " WHERE " + colName + " = '" + value + "'";
 
-}
+        try
+        {
+            // Create statement
+            STATEMENT = CONNECTION.createStatement();
+
+            // Create resultset
+            ResultSet rs = STATEMENT.executeQuery( sql );
+            
+            // Get metadata
+            ResultSetMetaData md = rs.getMetaData();
+            
+            // Get column count
+            int columns = md.getColumnCount();
+
+            
+            for ( int i = 1; i <= columns; ++i )
+            {
+                // Put in HashMap & new ArrayList
+                map.put( md.getColumnName( i ), new ArrayList() );
+            }
+            while ( rs.next() )
+            {
+                for ( int i = 1; i <= columns; ++i )
+                {
+                    // Get in HashMap & add to ArrayList
+                    map.get( md.getColumnName( i ) ).add( rs.getString( i ) );
+                }
+            }
+        }
+
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+        finally
+        {
+            // Finally block used to close resources
+            try
+            {
+                if ( STATEMENT != null || CONNECTION != null ) CONNECTION.close();
+            }
+            
+            catch (SQLException se) 
+            {
+                se.printStackTrace();
+            }
+        }
+
+        return map;
+    }
+
+} // Class END
