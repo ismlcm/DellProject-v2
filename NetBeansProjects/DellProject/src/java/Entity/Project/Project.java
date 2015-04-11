@@ -13,7 +13,7 @@ package Entity.Project;
 public class Project {
     
     private int projectID;
-    private String cvrNumber;
+    private int cvrNumber;
     private String title;
     private String desc;
     private int cost;
@@ -21,24 +21,24 @@ public class Project {
     private String endDate;
     private String status;
 
-    public Project( int projectID, String cvrNumber, String title, String desc, String startDate, String endDate )
+    public Project( int projectID, int cvrNumber, String title, String desc, int cost, String startDate, String endDate, String status )
     {
         this.projectID = projectID;
         this.cvrNumber = cvrNumber;
         this.title = title;
         this.desc = desc;
-        this.cost = 0;
+        this.cost = cost;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = "new";
+        this.status = status;
     }
 
-    public String getCvrNumber()
+    public int getCvrNumber()
     {
         return cvrNumber;
     }
 
-    public void setCvrNumber( String cvrNumber )
+    public void setCvrNumber( int cvrNumber )
     {
         this.cvrNumber = cvrNumber;
     }

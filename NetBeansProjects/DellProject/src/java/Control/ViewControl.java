@@ -68,7 +68,9 @@ public class ViewControl implements ViewInterface{
                 "<link rel='stylesheet' href='http://localhost:8080/DellProject/bootstrap/css/bootstrap.min.css'>" + "\n\n" +
 
                 "<!-- Optional theme -->" + "\n" +
-                "<link rel='stylesheet' href='http://localhost:8080/DellProject/bootstrap/css/bootstrap-theme.min.css'>" + "\n" +
+                "<link rel='stylesheet' href='http://localhost:8080/DellProject/bootstrap/css/bootstrap-theme.min.css'>" + "\n\n" +
+                "<!-- Custom styles for this template -->" + "\n" +
+                "<link href='http://localhost:8080/DellProject/bootstrap/css/sticky-footer.css' rel='stylesheet'>" + "\n" +
                 "<!-- /BOOTSRAP -->";
         
         return head;
@@ -78,7 +80,7 @@ public class ViewControl implements ViewInterface{
     public String getFooter()
     {
         String footer = 
-                "<footer style='background: #1486C1; padding: 10px; color: #ffffff; text-align: center; position: absolute; bottom: 0px; width: 100%;'>" + "\n" +
+                "<footer class='footer'>" + "\n" +
                 "<div class='container'>" + "\n" + 
                 "<p style='font-size: 10px;'>&copy; 2015 Dell</p>" + "\n" +
                 "</div>" + "\n" +

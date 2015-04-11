@@ -16,12 +16,14 @@ import java.util.HashMap;
  */
 public class ProjectControl implements ProjectInterface{
     
+    public static HashMap<Integer, Project> projects = new HashMap();
+    
     
     public static void main(String[] args) {
         
         ProjectControl p = new ProjectControl();
         
-        p.createProject(new Project(1, "341343131", "Test title", "Test desc", "start dato", "end dato"));
+        //p.createProject(new Project(1, "341343131", "Test title", "Test desc", "start dato", "end dato"));
         
         
 //        System.out.println(projects.size());
@@ -37,15 +39,11 @@ public class ProjectControl implements ProjectInterface{
         
         System.out.println( projects.get( "1" ).getProjectID() );
     }
-    
-    
-    static HashMap<String, Project> projects = new HashMap();
-    
 
     @Override
     public boolean createProject(Project project) {
         
-        String projectId = Integer.toString(project.getProjectID());
+        int projectId = project.getProjectID();
         
         if(projects.containsKey(projectId))    
         {
