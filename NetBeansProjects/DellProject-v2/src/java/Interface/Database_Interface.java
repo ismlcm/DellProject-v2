@@ -19,5 +19,11 @@ public interface Database_Interface
 
     void close_connection();
 
-    void getCompanies();
+    ArrayList getTable( String tablename );
+
+    HashMap getCompaniesWithSpecificValue( String tablename, String colName, String value );
+    
+    void insertCompaniesFromTableToHashMap(String tablename);
+    
+    void insertUsersToCompanies( String tablename );
 }

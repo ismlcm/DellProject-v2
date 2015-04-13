@@ -27,7 +27,7 @@ public interface Company_Interface
     
     /******************************************************/
     
-    boolean createOtherUser(String companyId, String firstname, String password, String lastname, String email, String phone, String vatnumber);
+    boolean createOtherUser(String email, String password, String firstname, String lastname, String phone, String status, String usertype, String vatnumber);
     
     boolean removeOtherUser(String companyId, String userEmail);
     

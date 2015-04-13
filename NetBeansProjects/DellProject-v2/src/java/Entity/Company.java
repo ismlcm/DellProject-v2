@@ -26,8 +26,8 @@ public class Company {
     private String status; // { new, open close }
 
     
-    HashMap<String, User> users;
-    HashMap<String, Project> projects;
+    HashMap<String, User> users = new HashMap();
+    HashMap<String, Project> projects = new HashMap();
 
     /******************************************************/
     
