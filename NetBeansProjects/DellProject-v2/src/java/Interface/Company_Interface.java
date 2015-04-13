@@ -35,4 +35,8 @@ public interface Company_Interface
     
     boolean checkUser(String vatnumber,String userEmail ,String Password);
     
+    boolean checkUserType(String vatnumber, String userEmail,String userType);
+    
+    
+    
 }

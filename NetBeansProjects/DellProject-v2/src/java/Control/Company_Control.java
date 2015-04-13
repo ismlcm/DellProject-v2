@@ -129,5 +129,25 @@ public class Company_Control implements Company_Interface {
             return false;
         }
     }
-}
 
+    @Override
+    public boolean checkUserType(String vatnumber, String userEmail, String userType) {
+        if (companies.containsKey(vatnumber)) {
+            if (companies.get(vatnumber).getUsers().containsKey(userEmail)) {
+                if (companies.get(vatnumber).getUsers().get(userEmail).equals(userEmail)
+                        && companies.get(vatnumber).getUsers().get(userEmail).equals(userType)) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+    }
+}
