@@ -14,137 +14,119 @@ import java.util.HashMap;
  *
  * @author Ismail Cam
  */
-public class Company_Control implements Company_Interface
-{
+public class Company_Control implements Company_Interface {
 
     public static HashMap<String, Company> companies = new HashMap();
-    
 
     @Override
-    public boolean createCompany( String companyId, String name, String country, String address, String city, String postcode, String email, String phone, String password )
-    {
-        if ( companies.containsKey( companyId ) )
-        {
+    public boolean createCompany(String companyId, String name, String country, String address, String city, String postcode, String email, String phone, String password) {
+        if (companies.containsKey(companyId)) {
             return false;
-        }
-        else
-        {
-            Company company = new Company( companyId, name, country, address, city, postcode, email, phone, password );
+        } else {
+            Company company = new Company(companyId, name, country, address, city, postcode, email, phone, password);
 
-            companies.put( companyId, company );
+            companies.put(companyId, company);
 
             return true;
         }
     }
 
     @Override
-    public boolean createDellCompany()
-    {
-        if ( companies.containsKey( "0" ) )
-        {
+    public boolean createDellCompany() {
+        if (companies.containsKey("0")) {
             return false;
-        }
-        else
-        {
+        } else {
             Company dellCompany = new Company();
 
-            companies.put( "0", dellCompany );
+            companies.put("0", dellCompany);
 
             return true;
         }
     }
 
     @Override
-    public boolean removeCompany( String companyId )
-    {
-        if ( companies.containsKey( companyId ) )
-        {
-            companies.remove( companyId );
+    public boolean removeCompany(String companyId) {
+        if (companies.containsKey(companyId)) {
+            companies.remove(companyId);
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 
     }
 
     @Override
-    public Company getCompany( String companyId )
-    {
-        if ( companies.containsKey( companyId ) )
-        {
-            Company company = companies.get( companyId );
+    public Company getCompany(String companyId) {
+        if (companies.containsKey(companyId)) {
+            Company company = companies.get(companyId);
 
             return company;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
     @Override
-    public boolean createOtherUser( String email, String password, String firstname, String lastname, String phone, String status, String usertype, String vatnumber )
-    {
-        if ( companies.containsKey( vatnumber ) )
-        {
-            
-            User user = new User( email, password, firstname, lastname, phone, status, usertype, vatnumber );
+    public boolean createOtherUser(String email, String password, String firstname, String lastname, String phone, String status, String usertype, String vatnumber) {
+        if (companies.containsKey(vatnumber)) {
 
-            companies.get( vatnumber ).getUsers().put( email, user );
+            User user = new User(email, password, firstname, lastname, phone, status, usertype, vatnumber);
+
+            companies.get(vatnumber).getUsers().put(email, user);
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     @Override
-    public boolean removeOtherUser( String companyId, String userEmail )
-    {
-        if ( companies.containsKey( companyId ) )
-        {
-            if ( companies.get( companyId ).getUsers().containsKey( userEmail ) )
-            {
-                companies.get( companyId ).getUsers().remove( userEmail );
+    public boolean removeOtherUser(String companyId, String userEmail) {
+        if (companies.containsKey(companyId)) {
+            if (companies.get(companyId).getUsers().containsKey(userEmail)) {
+                companies.get(companyId).getUsers().remove(userEmail);
 
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     @Override
-    public User getUser( String companyId, String userEmail )
-    {
-        if ( companies.containsKey( companyId ) )
-        {
-            if ( companies.get( companyId ).getUsers().containsKey( userEmail ) )
-            {
-                User user = companies.get( companyId ).getUsers().get( userEmail );
+    public User getUser(String companyId, String userEmail) {
+        if (companies.containsKey(companyId)) {
+            if (companies.get(companyId).getUsers().containsKey(userEmail)) {
+                User user = companies.get(companyId).getUsers().get(userEmail);
 
                 return user;
-            }
-            else
-            {
+            } else {
                 return null;
             }
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
+    @Override
+    public boolean checkUser(String vatnumber, String userEmail, String password) {
+        if (companies.containsKey(vatnumber)) {
+            if (companies.get(vatnumber).getUsers().containsKey(userEmail)) {
+                if (companies.get(vatnumber).getUsers().get(userEmail).getEmail().equals(userEmail)
+                        && companies.get(vatnumber).getUsers().get(userEmail).getPassword().equals(password)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+
+            return false;
+        }
+    }
 }

@@ -33,4 +33,6 @@ public interface Company_Interface
     
     User getUser( String companyId, String userEmail );
     
+    boolean checkUser(String vatnumber,String userEmail ,String Password);
+    
 }
