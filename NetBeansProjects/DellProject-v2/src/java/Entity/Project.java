@@ -23,7 +23,7 @@ public class Project {
 
     /******************************************************/
     
-    public Project( String id, String title, String desc, String amount, String start_date, String end_date )
+    public Project( String id, String title, String desc, String amount, String start_date, String end_date)
     {
         this.id = id;
         this.title = title;
