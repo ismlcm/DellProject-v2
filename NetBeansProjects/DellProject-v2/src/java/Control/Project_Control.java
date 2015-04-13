@@ -52,4 +52,24 @@ public class Project_Control implements Project_Interface{
         }
            return false;
     }
+
+    @Override
+    public Project getProject(String vatnumber, String id) {
+        if(companies.containsKey(vatnumber)){
+            if(companies.get(vatnumber).getProjects().containsKey(id)){
+                return companies.get(vatnumber).getProjects().get(id);
+                
+                
+            }
+            else{
+                return null;
+            }
+            
+        }
+        else{
+            return null;
+        }
+        
+    }
 }
+    

@@ -19,4 +19,6 @@ public interface Project_Interface
     
     boolean deleteProject(String vatnumber, String id);
     
+    Project getProject(String vatnumber, String id);
+    
 }
