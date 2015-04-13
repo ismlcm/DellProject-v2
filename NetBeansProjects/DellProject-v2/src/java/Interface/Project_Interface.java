@@ -14,11 +14,11 @@ import Entity.Project;
 public interface Project_Interface
 {
     
-    boolean createProject(String vatnumber, String id, String title, String desc, String amount, String start_date, String end_date, String status);
+    boolean createProject(String vatnumber, String Project_Id, String title, String desc, String amount, String start_date, String end_date, String status);
     
     
-    boolean deleteProject(String vatnumber, String id);
+    boolean deleteProject(String vatnumber, String Project_Id);
     
-    Project getProject(String vatnumber, String id);
+    Project getProject(String vatnumber, String Project_Id);
     
 }
