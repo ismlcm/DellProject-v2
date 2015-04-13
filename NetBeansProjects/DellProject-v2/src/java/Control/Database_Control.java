@@ -5,11 +5,17 @@
  */
 package Control;
 
+import Entity.Company;
+import Entity.User;
 import Interface.Database_Interface;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -17,13 +23,24 @@ import java.sql.Statement;
  */
 public class Database_Control implements Database_Interface
 {
-    
+
     public static void main( String[] args )
     {
         Database_Interface db = new Database_Control();
-        
+
+        System.out.println( Company_Control.companies.size() );
+
         db.open_connection();
+
+        db.insertCompaniesFromTableToHashMap( "COMPANIES" );
+        db.insertUsersToCompanies( "USERS" );
+
         db.close_connection();
+
+        System.out.println( Company_Control.companies.size() );
+        
+        System.out.println( Company_Control.companies.get( "12345678" ).getUsers() );
+
     }
 
     /**
@@ -93,11 +110,136 @@ public class Database_Control implements Database_Interface
     }
 
     @Override
-    public void getCompanies()
+    public ArrayList getTable( String tablename )
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
 
+        // HashMap
+        ArrayList<String> map = new ArrayList();
+
+        // SQL ready
+        String sql = "SELECT * FROM " + tablename;
+
+        try
+        {
+            // Create statement
+            STATEMENT = CONNECTION.createStatement();
+
+            // Create resultset
+            ResultSet rs = STATEMENT.executeQuery( sql );
+
+            // Get metadata
+            ResultSetMetaData md = rs.getMetaData();
+
+            // Get column count
+            int columns = md.getColumnCount();
+
+            while ( rs.next() )
+            {
+                for ( int i = 1; i <= columns; ++i )
+                {
+                    // Get in HashMap & add to ArrayList
+                    map.add( rs.getString( i ) );
+                }
+            }
+        }
+
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+
+        return map;
+    }
+
+    @Override
+    public HashMap getCompaniesWithSpecificValue( String tablename, String colName, String value )
+    {
+        // HashMap
+        HashMap<String, ArrayList<String>> map = new HashMap();
+
+        // SQL ready
+        String sql = "SELECT * FROM " + tablename + " WHERE " + colName + " = '" + value + "'";
+
+        try
+        {
+            // Create statement
+            STATEMENT = CONNECTION.createStatement();
+
+            // Create resultset
+            ResultSet rs = STATEMENT.executeQuery( sql );
+
+            // Get metadata
+            ResultSetMetaData md = rs.getMetaData();
+
+            // Get column count
+            int columns = md.getColumnCount();
+
+            for ( int i = 1; i <= columns; ++i )
+            {
+                // Put in HashMap & new ArrayList
+                map.put( md.getColumnName( i ), new ArrayList() );
+            }
+            while ( rs.next() )
+            {
+                for ( int i = 1; i <= columns; ++i )
+                {
+                    // Get in HashMap & add to ArrayList
+                    map.get( md.getColumnName( i ) ).add( rs.getString( i ) );
+                }
+            }
+        }
+
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+
+        return map;
+    }
+
+    @Override
+    public void insertCompaniesFromTableToHashMap( String tablename )
+    {
+        ArrayList<String> map = getTable( tablename );
+
+        ArrayList<String> com = new ArrayList();
+
+        for ( int i = 0; i < map.size(); i++ )
+        {
+
+            com.add( map.get( i ) );
+
+            if ( com.size() == 10 )
+            {
+                Company company = new Company( com.get( 0 ), com.get( 1 ), com.get( 2 ), com.get( 3 ), com.get( 4 ), com.get( 5 ), com.get( 6 ), com.get( 7 ), com.get( 8 ) );
+                Company_Control.companies.put( com.get( 0 ), company );
+                com.clear();
+            }
+
+        }
+    }
+
+    @Override
+    public void insertUsersToCompanies( String tablename )
+    {
+        ArrayList<String> map = getTable( tablename );
+
+        ArrayList<String> com = new ArrayList();
+        
+        for ( int i = 0; i < map.size(); i++ )
+        {
+          
+            com.add( map.get( i ) );
+
+            if ( com.size() == 8 )
+            {
+                System.out.println( com.get( 0) );
+                
+                User user = new User(com.get( 0 ), com.get( 1 ), com.get( 2 ), com.get( 3 ), com.get( 4 ), com.get( 5 ), com.get( 6 ), com.get( 7 ) );
+                Company_Control.companies.get( com.get( 7 ) ).getUsers().put( com.get( 0 ), user);
+                com.clear();
+            }
+
+        }
+    }
 }

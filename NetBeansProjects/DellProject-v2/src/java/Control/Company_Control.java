@@ -86,13 +86,14 @@ public class Company_Control implements Company_Interface
     }
 
     @Override
-    public boolean createOtherUser( String companyId, String firstname, String password, String lastname, String email, String phone, String vatnumber )
+    public boolean createOtherUser( String email, String password, String firstname, String lastname, String phone, String status, String usertype, String vatnumber )
     {
-        if ( companies.containsKey( companyId ) )
+        if ( companies.containsKey( vatnumber ) )
         {
-            User user = new User( firstname, password, lastname, email, phone, vatnumber );
+            
+            User user = new User( email, password, firstname, lastname, phone, status, usertype, vatnumber );
 
-            companies.get( companyId ).getUsers().put( email, user );
+            companies.get( vatnumber ).getUsers().put( email, user );
 
             return true;
         }

@@ -38,14 +38,14 @@ public class User {
     }
     
     // For Partner
-    public User( String firstname, String lastname, String password, String email, String phone, String vatnumber )
+    public User( String email, String password, String firstname, String lastname, String phone, String status, String usertype, String vatnumber )
     {
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.status = "new";
+        this.status = status;
         this.usertype = "partner";
         this.vatnumber = vatnumber;
     }
