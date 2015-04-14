@@ -26,4 +26,6 @@ public interface Database_Interface
     void insertCompaniesFromTableToHashMap(String tablename);
     
     void insertUsersToCompanies( String tablename );
+    
+    boolean updateValueInTable(String tablename, String updateCol, String newValue, String idColName, String id );
 }
