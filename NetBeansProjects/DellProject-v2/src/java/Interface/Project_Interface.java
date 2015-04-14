@@ -21,4 +21,6 @@ public interface Project_Interface
     
     Project getProject(String vatnumber, String Project_Id);
     
+    boolean projectStatus(String vatnumber, String project_id, String status);
+    
 }
